@@ -18,6 +18,10 @@
   "keywords": ["football", "picks", "betting", "sports"],
   "author": "NewtonianWay",
   "license": "MIT"
+  ,
+  "engines": {
+    "node": "20.x"
+  }
 }
 
 
