@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewtonianWay - Football Picks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Animated particle background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        /* Subtle grid pattern overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .pick-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .pick-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .form-input {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(120, 219, 255, 0.5);
+            box-shadow: 0 0 0 3px rgba(120, 219, 255, 0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+    </style>
+</head>
+<body class="text-white">
+    <!-- Header -->
+    <header class="glass-effect border-b border-white/10">
+        <div class="max-w-6xl mx-auto px-4 py-6">
+            <h1 class="text-4xl font-bold text-center bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                NewtonianWay
+            </h1>
+            <p class="text-center text-gray-300 mt-2">Premium Football Picks</p>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        <!-- Submission Form -->
+        <section class="mb-12">
+            <div class="glass-effect rounded-2xl p-8 max-w-2xl mx-auto">
+                <h2 class="text-2xl font-semibold mb-6 text-center">Submit Your Pick</h2>
+                <form id="pickForm" class="space-y-6">
+                    <div>
+                        <label for="username" class="block text-sm font-medium mb-2">Username *</label>
+                        <input 
+                            type="text" 
+                            id="username" 
+                            name="username" 
+                            required
+                            class="form-input w-full px-4 py-3 rounded-lg text-white placeholder-gray-400"
+                            placeholder="Enter your username"
+                        >
+                    </div>
+                    
+                    <div>
+                        <label for="match" class="block text-sm font-medium mb-2">Match *</label>
+                        <input 
+                            type="text" 
+                            id="match" 
+                            name="match" 
+                            required
+                            class="form-input w-full px-4 py-3 rounded-lg text-white placeholder-gray-400"
+                            placeholder="e.g., Manchester United vs Liverpool"
+                        >
+                    </div>
+                    
+                    <div>
+                        <label for="prediction" class="block text-sm font-medium mb-2">Prediction *</label>
+                        <textarea 
+                            id="prediction" 
+                            name="prediction" 
+                            required
+                            rows="3"
+                            class="form-input w-full px-4 py-3 rounded-lg text-white placeholder-gray-400 resize-none"
+                            placeholder="Your detailed prediction..."
+                        ></textarea>
+                    </div>
+                    
+                    <div>
+                        <label for="betting_code" class="block text-sm font-medium mb-2">Betting Code (Optional)</label>
+                        <input 
+                            type="text" 
+                            id="betting_code" 
+                            name="betting_code"
+                            class="form-input w-full px-4 py-3 rounded-lg text-white placeholder-gray-400"
+                            placeholder="Enter betting code if applicable"
+                        >
+                    </div>
+                    
+                    <button 
+                        type="submit" 
+                        class="btn-primary w-full py-3 px-6 rounded-lg font-semibold text-white"
+                    >
+                        Submit Pick
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Statistics -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-semibold mb-8 text-center">Community Stats</h2>
+            <div id="statsContainer">
+                <!-- Stats will be loaded here -->
+                <div class="text-center py-8">
+                    <div class="animate-pulse">
+                        <div class="w-8 h-8 border-4 border-purple-400 border-t-transparent rounded-full mx-auto mb-4"></div>
+                        <p class="text-gray-400">Loading statistics...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Picks Display -->
+        <section>
+            <h2 class="text-3xl font-semibold mb-8 text-center">Recent Picks</h2>
+            <div id="picksContainer" class="space-y-6">
+                <!-- Picks will be loaded here -->
+                <div class="text-center py-12">
+                    <div class="animate-pulse">
+                        <div class="w-8 h-8 border-4 border-blue-400 border-t-transparent rounded-full mx-auto mb-4"></div>
+                        <p class="text-gray-400">Loading picks...</p>
+                    </div>
+                </div>
+            </div>
+            <div id="paginationContainer">
+                <!-- Pagination will be loaded here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-16 py-8 text-center text-gray-400">
+        <p>&copy; 2024 NewtonianWay. Premium Football Picks.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
