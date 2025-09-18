@@ -4,6 +4,9 @@ const path = require('path');
 const dbPath = path.join(__dirname, 'football_picks.db');
 const db = new sqlite3.Database(dbPath);
 
+// Set timezone to West African Time (UTC+1)
+db.run("PRAGMA timezone = '+01:00'");
+
 // Initialize database and create picks table
 function initializeDatabase() {
   return new Promise((resolve, reject) => {
@@ -15,7 +18,7 @@ function initializeDatabase() {
           match TEXT NOT NULL,
           prediction TEXT NOT NULL,
           betting_code TEXT,
-          created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+          created_at DATETIME DEFAULT (datetime('now', '+01:00'))
         )
       `, (err) => {
         if (err) {
